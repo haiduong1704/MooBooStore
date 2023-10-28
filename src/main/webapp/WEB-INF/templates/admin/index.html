@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="admin/fragments :: html_head">
+  <style>
+    .tiler{
+      font-weight: 600;
+      font-size: 18px;
+      text-transform: inherit;
+      color: #4B77BE !important
+    }
+  </style>
+
+</head>
+
+<body class="sb-nav-fixed">
+<nav th:replace="admin/fragments :: html_nav" class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+
+</nav>
+<div  id="layoutSidenav">
+  <div th:replace="admin/fragments :: html_menu" id="layoutSidenav_nav">
+
+  </div>
+  <div id="layoutSidenav_content">
+    <div class="container-fluid px-4">
+
+      <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active"></li>
+      </ol>
+      <div class="row">
+        <div class="col-xl-3 col-md-6">
+          <div class="card bg-primary text-white mb-4">
+            <div class="card-body">Số lượng sản phẩm: <strong th:text="${countC}"></strong> </div>
+            <div class="card-footer d-flex align-items-center justify-content-between">
+              <a class="small text-white stretched-link" href="/admin/product">Xem chi tiết</a>
+              <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+          <div class="card bg-warning text-white mb-4">
+            <div class="card-body">Số lượng khách hàng : <strong th:text="${countU}"></strong> </div>
+            <div class="card-footer d-flex align-items-center justify-content-between">
+              <a class="small text-white stretched-link" href="/admin/customer">Xem chi tiết</a>
+              <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+          <div class="card bg-success text-white mb-4">
+            <div class="card-body">Số lượng đơn hàng : <strong th:text="${countB}"></strong></div>
+            <div class="card-footer d-flex align-items-center justify-content-between">
+              <a class="small text-white stretched-link" href="/admin/order">Xem chi tiết</a>
+              <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+          <div class="card bg-danger text-white mb-4">
+            <div class="card-body">Doanh thu : <strong th:text="${#numbers.formatCurrency(sum)}"></strong> </div>
+            <div class="card-footer d-flex align-items-center justify-content-between">
+              <a class="small text-white stretched-link" href="/admin/order">Xem chi tiết</a>
+              <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+     <div class="row px-4 " style="display: ; justify-content: space-between">
+       <div style="width: 48%">
+          <div class="w-100 top " style=" padding: 10px;     border-radius: 8px;    border: 1px solid #e1e1e1 !important; background: white;background: white;height: 520px;margin: 10px 0px"  >
+                <div><p style="font-size: 18px; font-weight: 600; text-transform: inherit;color: #4B77BE !important">Top 10 Danh Sách Không Bán Được</p></div>
+
+                 <div style="margin: 10px 0px">
+                   <div class="card-body" style="padding: 0px;height:450px; overflow: auto;">
+                     <table class="table table-bordered">
+                       <thead  class="thead-dark">
+                       <tr style="background-color: gray !important;">
+                         <th>STT</th>
+                         <th>Tên</th>
+                         <th>Giá</th>
+                         <th>Số lượng</th>
+
+
+                       </tr>
+                       </thead>
+                       <tfoot>
+                       <tr>
+                       </tr>
+                       </tfoot>
+                       <tbody>
+                       <th:block th:each="product,index : ${products}">
+                         <tr>
+                           <td th:text="${index.index +1}"></td>
+                           <td th:text="${product.name}"></td>
+                           <td th:text="${#numbers.formatCurrency(product.price)}"></td>
+                           <td th:text="${product.quantity}"></td>
+
+
+                         </tr>
+                         <!-- Modal Des-->
+
+                       </th:block>
+
+
+                       <script>
+                         var dodai = document.getElementById("dodai").value;
+                         var a = parseInt(dodai);
+                         for(var i = 1;i<=a+10;i++){
+                           var name = "#editor"  + i
+                           ClassicEditor.create(document.querySelector(name)).then(eidt => {
+                             console.log("da" + eidt);
+                           })
+                                   .catch(error => {
+                                     console.error(error);
+                                   });
+                         }
+                       </script>
+
+                       </tbody>
+                     </table>
+                   </div>
+
+
+                </div>
+          </div>
+
+
+
+       </div>
+       <div style="width: 48%">
+         <div class="w-100 " style=" padding: 10px;     border-radius: 8px;    border: 1px solid #e1e1e1 !important; background: white;background: white;height: 520px;margin: 10px 0px"  >
+           <div><p style="font-size: 18px; font-weight: 600; text-transform: inherit;color: #6a1a21 !important">Top 10 Danh Sách Bán Được</p></div>
+
+           <div style="margin: 10px 0px">
+             <div class="card-body" style="padding: 0px;height:450px; overflow: auto;">
+               <table class="table table-bordered">
+                 <thead  class="thead-dark">
+                 <tr style="background-color: #0f5132 !important; color: white !important;">
+                   <th>STT</th>
+                   <th>Tên</th>
+                   <th>Giá</th>
+                   <th>Số lượng</th>
+
+
+                 </tr>
+                 </thead>
+                 <tfoot>
+                 <tr>
+                 </tr>
+                 </tfoot>
+                 <tbody>
+                 <th:block th:each="product,index : ${productss}">
+                   <tr>
+                     <td th:text="${index.index +1}"></td>
+                     <td th:text="${product.name}"></td>
+                     <td th:text="${#numbers.formatCurrency(product.price)}"></td>
+                     <td th:text="${product.quantity}"></td>
+
+
+                   </tr>
+                   <!-- Modal Des-->
+
+                 </th:block>
+
+
+                 <script>
+                   var dodai = document.getElementById("dodai").value;
+                   var a = parseInt(dodai);
+                   for(var i = 1;i<=a+10;i++){
+                     var name = "#editor"  + i
+                     ClassicEditor.create(document.querySelector(name)).then(eidt => {
+                       console.log("da" + eidt);
+                     })
+                             .catch(error => {
+                               console.error(error);
+                             });
+                   }
+                 </script>
+
+                 </tbody>
+               </table>
+             </div>
+
+
+           </div>
+         </div>
+
+
+
+       </div>
+
+
+     </div>
+    <div class="col-lg-12 px-4">
+      <div class="card mb-4">
+        <div class="card-header">
+          <i class="fas fa-chart-bar me-1"></i>
+          Doanh thu mỗi tháng
+        </div>
+        <div class="card-body"><canvas id="myBarChart" width="100%" height="50"></canvas></div>
+
+      </div>
+    </div>
+    <p style="display:none" id="m1" th:text="${m1}"></p>
+    <p style="display:none" id="m2" th:text="${m2}"></p>
+    <p style="display:none" id="m3" th:text="${m3}">}</p>
+    <p style="display:none" id="m4" th:text="${m4}"></p>
+    <p style="display:none" id="m5" th:text="${m5}"></p>
+    <p style="display:none" id="m6" th:text="${m6}"></p>
+    <p style="display:none" id="m7" th:text="${m7}"></p>
+    <p style="display:none" id="m8" th:text="${m8}"></p>
+    <p style="display:none" id="m9" th:text="${m9}"></p>
+    <p style="display:none" id="m10" th:text="${m10}"></p>
+    <p style="display:none" id="m11" th:text="${m11}"></p>
+    <p style="display:none" id="m12" th:text="${m12}"></p>
+    </main>
+
+  </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+<script th:src="@{/admin1/assets/assets/demo/chart-area-demo.js}"></script>
+<script th:src="@{/admin1/assets/assets/demo/chart-bar-demo.js}"></script>
+<script th:src="@{/admin1/assets/assets/demo/chart-pie-demo.js}"></script>
+</body>
+
+</html>
